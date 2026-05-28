@@ -28,7 +28,7 @@ export default function App() {
       >
         <div className="flex items-center gap-2">
           <span className="text-gold" style={{ fontSize: 18 }}>✦</span>
-          <span className="font-serif-display text-xl text-stardust-bright" style={{ letterSpacing: '0.25em' }}>CELESTIA</span>
+          <span className="font-serif-display text-xl text-stardust-bright" style={{ letterSpacing: '0.25em' }}>astrologywithsujal</span>
         </div>
         <nav className="hidden md:flex items-center gap-10">
           {['Readings', 'Astrologers', 'Book'].map(link => (
@@ -96,7 +96,7 @@ export default function App() {
         <motion.div className="mt-8 space-y-2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
           <p className="font-serif-display text-lg text-stardust-dim italic">"As above, so below"</p>
           <p className="text-xs tracking-[0.3em] uppercase text-stardust-dim" style={{ opacity: 0.5 }}>
-            © {new Date().getFullYear()} Celestia · All rights reserved · Crafted under the stars
+            © {new Date().getFullYear()} astrologywithsujal · All rights reserved · Crafted under the stars
           </p>
         </motion.div>
       </footer>
