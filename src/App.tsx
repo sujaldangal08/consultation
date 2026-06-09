@@ -145,7 +145,7 @@ export default function App() {
           className="flex items-center gap-2 group"
         >
           <span className="text-gold text-xl group-hover:scale-110 transition-transform duration-300">✦</span>
-          <span className="font-serif-display text-xl text-stardust-bright" style={{ letterSpacing: '0.25em' }}>SUJAL DANGAL</span>
+          <span className="font-serif-display text-xl text-stardust-bright" style={{ letterSpacing: '0.25em' }}>astrologywithsujal</span>
         </button>
 
         {/* Desktop nav */}
@@ -539,13 +539,13 @@ export default function App() {
               className="text-xs tracking-[0.2em] uppercase text-stardust-dim hover:text-gold transition-colors">Instagram</a>
             <span className="text-gold opacity-40">✦</span>
             <a href="https://sujaldangal.com.np" target="_blank" rel="noopener noreferrer"
-              className="text-xs tracking-[0.2em] uppercase text-stardust-dim hover:text-gold transition-colors">sujaldangal.com.np</a>
+              className="text-xs tracking-[0.2em] uppercase text-stardust-dim hover:text-gold transition-colors">astrologywithsujal</a>
             <span className="text-gold opacity-40">✦</span>
             <button onClick={() => scrollTo('booking')}
               className="text-xs tracking-[0.2em] uppercase text-stardust-dim hover:text-gold transition-colors">Book Now</button>
           </div>
           <p className="text-xs tracking-[0.3em] uppercase text-stardust-dim" style={{ opacity: 0.4 }}>
-            © {new Date().getFullYear()} Sujal Dangal · Vedic Astrology · Kathmandu, Nepal
+            © {new Date().getFullYear()} astrologywithsujal · Vedic Astrology · Kathmandu, Nepal
           </p>
         </motion.div>
       </footer>
