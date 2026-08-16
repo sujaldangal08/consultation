@@ -5,12 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 type SubmitState = 'idle' | 'loading' | 'done' | 'error'
 
 const CONSULTATION_LABELS: Record<string, string> = {
-  natal: 'Natal Chart — Birth Blueprint',
-  synastry: 'Synastry — Relationship Dynamics',
-  career: 'Career & Purpose — Soul Mission',
-  year: 'Year Ahead — Celestial Forecast',
-  spiritual: 'Spiritual Guidance — Cosmic Alignment',
-  prashna: 'Prashna (Horary) — Answer Your Question',
+  natal: 'Natal Chart',
+  synastry: 'Pending Karma Reading',
+  career: 'Career Guidance',
 }
 
 interface FormValues {
@@ -127,8 +124,8 @@ export default function BookingForm() {
   }
 
   const inputFields: { name: keyof FormValues; label: string; type: string; placeholder: string; required: boolean }[] = [
-    { name: 'name',    label: 'Full Name',             type: 'text',  placeholder: 'Your celestial name',  required: true  },
-    { name: 'email',   label: 'Email Address',          type: 'email', placeholder: 'your@cosmos.com',      required: true  },
+    { name: 'name',    label: 'Full Name',             type: 'text',  placeholder: 'Your name',  required: true  },
+    { name: 'email',   label: 'Email Address',          type: 'email', placeholder: 'your@email.com',      required: true  },
     { name: 'phone',   label: 'Phone Number',           type: 'tel',   placeholder: '+977 98XXXXXXXX',      required: true  },
     { name: 'dob',     label: 'Date of Birth',          type: 'date',  placeholder: '',                     required: true  },
     { name: 'tob',     label: 'Time of Birth',          type: 'time',  placeholder: '',                     required: false },

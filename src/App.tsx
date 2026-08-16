@@ -10,57 +10,33 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
 })
 
-const navLinks = ['About', 'Services', 'Book']
+const navLinks = ['About', 'Services', 'Book', 'Research']
 
 const services = [
   {
     icon: '☽',
-    title: 'Natal Chart Reading',
-    subtitle: 'Birth Blueprint',
-    desc: 'A deep dive into your birth chart — your soul\'s cosmic signature at the moment of arrival. Discover your life purpose, karmic lessons, and natural gifts.',
+    title: 'General Consultation',
+    subtitle: 'Natal Chart',
+    desc: 'A deep dive into your natal chart, exploring divisional charts to hep you with your strength and weaknesses.',
     duration: '60 min',
-    price: 'NPR 2,500',
+    price: 'NPR 2,250',
   },
   {
     icon: '♀',
-    title: 'Synastry Reading',
-    subtitle: 'Relationship Dynamics',
-    desc: 'Explore the cosmic chemistry between two souls. Understand compatibility, karmic bonds, and how planetary energies interact in your relationships.',
+    title: 'Pending Karma Reading',
+    subtitle: 'Nakshatra Reading',
+    desc: 'Reading based on Nakshatra to help you undestand the pending karma that you have and can rectify for a better journey of a soul.',
     duration: '75 min',
     price: 'NPR 3,000',
   },
   {
     icon: '☉',
     title: 'Career & Purpose',
-    subtitle: 'Soul Mission',
+    subtitle: 'Career Guidance',
     desc: 'Align your professional path with cosmic timing. Discover your dharma, optimal career periods, and the planetary forces guiding your life\'s work.',
     duration: '60 min',
-    price: 'NPR 2,500',
-  },
-  {
-    icon: '♃',
-    title: 'Year Ahead Forecast',
-    subtitle: 'Celestial Calendar',
-    desc: 'A comprehensive look at the planetary transits and dashas shaping your next 12 months. Navigate opportunities and challenges with cosmic clarity.',
-    duration: '90 min',
-    price: 'NPR 3,500',
-  },
-  {
-    icon: '♆',
-    title: 'Spiritual Guidance',
-    subtitle: 'Cosmic Alignment',
-    desc: 'Connect with your higher self through Vedic wisdom. Explore your spiritual path, past-life influences, and the deeper meaning behind life\'s events.',
-    duration: '60 min',
-    price: 'NPR 2,500',
-  },
-  {
-    icon: '✦',
-    title: 'Prashna (Horary)',
-    subtitle: 'Answer Your Question',
-    desc: 'Have a burning question? Prashna astrology reads the chart cast at the exact moment of your inquiry — the stars hold the answer you seek.',
-    duration: '45 min',
-    price: 'NPR 1,800',
-  },
+    price: 'NPR 2,250',
+  }
 ]
 
 const testimonials = [
@@ -84,11 +60,135 @@ const testimonials = [
   },
 ]
 
+// ── Theme system ──────────────────────────────────────────────────────────
+// Everything below drives the dark "cosmic" theme (default) and a creamy,
+// warm-parchment light theme via CSS custom properties. The variables are
+// defined at :root so they cascade to every existing utility class
+// (.text-stardust, .text-gold, .glass-card, etc.) without needing to touch
+// your Tailwind config or hunt down every color reference by hand.
+type Theme = 'dark' | 'light'
+
+const themeStyleSheet = `
+  :root[data-theme='dark'] {
+    --bg-grad: radial-gradient(ellipse at top, #0d1330 0%, #050816 55%, #030510 100%);
+    --nav-bg: linear-gradient(180deg, rgba(5,8,22,0.92) 0%, rgba(5,8,22,0) 100%);
+    --overlay-bg: rgba(5,8,22,0.97);
+    --text: #c7c3d9;
+    --text-bright: #f5f3fa;
+    --text-dim: #8b87a3;
+    --gold: #d4af37;
+    --gold-glow: rgba(212,175,55,0.6);
+    --gold-dim: rgba(212,175,55,0.35);
+    --glass-bg: rgba(255,255,255,0.03);
+    --glass-border: rgba(212,175,55,0.18);
+    --glass-shadow: rgba(0,0,0,0.35);
+  }
+
+  :root[data-theme='light'] {
+    /* A warm, creamy parchment tone rather than flat white — closer to old
+       star-charts and candlelight than a sterile UI background. */
+    --bg-grad: radial-gradient(ellipse at top, #fdf7ea 0%, #f8edd6 55%, #f1e1bd 100%);
+    --nav-bg: linear-gradient(180deg, rgba(253,247,234,0.94) 0%, rgba(253,247,234,0) 100%);
+    --overlay-bg: rgba(253,247,234,0.97);
+    --text: #5a4b3a;
+    --text-bright: #2e2115;
+    --text-dim: #8d7a60;
+    --gold: #b07d1f;
+    --gold-glow: rgba(176,125,31,0.5);
+    --gold-dim: rgba(176,125,31,0.32);
+    --glass-bg: rgba(255,252,244,0.62);
+    --glass-border: rgba(176,125,31,0.28);
+    --glass-shadow: rgba(120,86,30,0.14);
+  }
+
+  html, body {
+    background: var(--bg-grad);
+    transition: background 0.7s ease;
+  }
+
+  .text-stardust { color: var(--text) !important; }
+  .text-stardust-bright { color: var(--text-bright) !important; }
+  .text-stardust-dim { color: var(--text-dim) !important; }
+  .text-gold { color: var(--gold) !important; }
+  .text-glow-gold { color: var(--gold) !important; text-shadow: 0 0 30px var(--gold-glow); }
+  .field-label { color: var(--gold) !important; opacity: 0.85; }
+  .bg-gold { background-color: var(--gold) !important; }
+  .border-gold { border-color: var(--gold) !important; }
+  .bg-gold-dim, .gold-dim { background-color: var(--gold-dim) !important; }
+
+  .glass-card {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow: 0 8px 32px var(--glass-shadow) !important;
+    transition: background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+  }
+`
+
+// Simple, dependency-free bulb icon so switching themes doesn't require
+// adding an icon library to the project.
+function BulbIcon({ lit }: { lit: boolean }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      style={{ color: 'var(--gold)' }}
+    >
+      <path
+        d="M12 3a6.5 6.5 0 00-3.9 11.7c.55.42.9 1.03.9 1.7v.6a1 1 0 001 1h4a1 1 0 001-1v-.6c0-.67.35-1.28.9-1.7A6.5 6.5 0 0012 3z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="currentColor"
+        fillOpacity={lit ? 0.28 : 0}
+      />
+      <path d="M10 20.5h4M10.5 22h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// Warm ambient backdrop shown behind the light theme instead of the
+// starfield — soft halos rather than literal stars, so it still reads as
+// "celestial" without looking like a night sky pasted onto daylight.
+function CreamGlow() {
+  return (
+    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div
+        className="absolute -top-40 -left-32 w-[520px] h-[520px] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(176,125,31,0.16) 0%, transparent 70%)', filter: 'blur(70px)' }}
+      />
+      <div
+        className="absolute top-1/4 -right-40 w-[460px] h-[460px] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.14) 0%, transparent 70%)', filter: 'blur(80px)' }}
+      />
+      <div
+        className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(176,125,31,0.1) 0%, transparent 70%)', filter: 'blur(90px)' }}
+      />
+    </div>
+  )
+}
+
 export default function App() {
   const [activeSection, setActiveSection] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [activeTestimonial, setActiveTestimonial] = useState(0)
+
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return 'dark'
+    const stored = window.localStorage.getItem('astrology-theme')
+    return stored === 'light' || stored === 'dark' ? stored : 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    window.localStorage.setItem('astrology-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'))
 
   // Track scroll for active nav + scroll-to-top button
   useEffect(() => {
@@ -124,9 +224,21 @@ export default function App() {
   const sectionId = (link: string) =>
     link === 'Book' ? 'booking' : link.toLowerCase()
 
+  // "Research" leaves the page entirely; every other link scrolls in-page.
+  const handleNavClick = (link: string) => {
+    if (link === 'Research') {
+      setMobileMenuOpen(false)
+      window.location.href = 'https://research.sujaldangal.com.np'
+      return
+    }
+    scrollTo(sectionId(link))
+  }
+
   return (
     <div className="relative min-h-screen text-stardust overflow-x-hidden">
-      <ConstellationSky />
+      <style>{themeStyleSheet}</style>
+
+      {theme === 'dark' ? <ConstellationSky /> : <CreamGlow />}
       <CornerSigil position="tl" />
       <CornerSigil position="tr" />
       <CornerSigil position="bl" />
@@ -138,7 +250,7 @@ export default function App() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-16 py-5"
-        style={{ background: 'linear-gradient(180deg, rgba(5,8,22,0.92) 0%, transparent 100%)', backdropFilter: 'blur(10px)' }}
+        style={{ background: 'var(--nav-bg)', backdropFilter: 'blur(10px)' }}
       >
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -153,7 +265,7 @@ export default function App() {
           {navLinks.map(link => (
             <button
               key={link}
-              onClick={() => scrollTo(sectionId(link))}
+              onClick={() => handleNavClick(link)}
               className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 ${
                 activeSection === sectionId(link) ? 'text-gold' : 'text-stardust-dim hover:text-gold'
               }`}
@@ -168,28 +280,47 @@ export default function App() {
           >
             Book Now
           </button>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="w-9 h-9 rounded-full flex items-center justify-center glass-card transition-transform duration-300 hover:scale-110"
+          >
+            <BulbIcon lit={theme === 'light'} />
+          </button>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-1 z-50"
-          onClick={() => setMobileMenuOpen(o => !o)}
-        >
-          {[0, 1, 2].map(i => (
-            <motion.span
-              key={i}
-              className="block h-px bg-gold"
-              style={{ width: i === 1 ? 20 : 28 }}
-              animate={mobileMenuOpen
-                ? i === 0 ? { rotate: 45, y: 8, width: 28 }
-                : i === 1 ? { opacity: 0 }
-                : { rotate: -45, y: -8, width: 28 }
-                : { rotate: 0, y: 0, opacity: 1, width: i === 1 ? 20 : 28 }
-              }
-              transition={{ duration: 0.3 }}
-            />
-          ))}
-        </button>
+        {/* Mobile controls */}
+        <div className="md:hidden flex items-center gap-3 z-50">
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="w-9 h-9 rounded-full flex items-center justify-center glass-card"
+          >
+            <BulbIcon lit={theme === 'light'} />
+          </button>
+          <button
+            className="flex flex-col gap-1.5 p-1"
+            onClick={() => setMobileMenuOpen(o => !o)}
+          >
+            {[0, 1, 2].map(i => (
+              <motion.span
+                key={i}
+                className="block h-px bg-gold"
+                style={{ width: i === 1 ? 20 : 28 }}
+                animate={mobileMenuOpen
+                  ? i === 0 ? { rotate: 45, y: 8, width: 28 }
+                  : i === 1 ? { opacity: 0 }
+                  : { rotate: -45, y: -8, width: 28 }
+                  : { rotate: 0, y: 0, opacity: 1, width: i === 1 ? 20 : 28 }
+                }
+                transition={{ duration: 0.3 }}
+              />
+            ))}
+          </button>
+        </div>
       </motion.nav>
 
       {/* Mobile menu overlay */}
@@ -200,7 +331,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-            style={{ background: 'rgba(5,8,22,0.97)', backdropFilter: 'blur(20px)' }}
+            style={{ background: 'var(--overlay-bg)', backdropFilter: 'blur(20px)' }}
           >
             {navLinks.map((link, i) => (
               <motion.button
@@ -208,7 +339,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                onClick={() => scrollTo(sectionId(link))}
+                onClick={() => handleNavClick(link)}
                 className="font-serif-display text-3xl text-stardust-bright hover:text-gold transition-colors"
               >
                 {link}
@@ -350,7 +481,7 @@ export default function App() {
             >
               <p className="text-stardust leading-relaxed text-base md:text-lg">
                 Namaste. I am <span className="text-gold font-medium">Sujal Dangal</span>, a dedicated Vedic astrologer based in the sacred valley of{' '}
-                <span className="text-stardust-bright">Kathmandu, Nepal</span>. For over 3 years, I have studied the ancient science of Jyotish — the light of the heavens — under traditional Vedic lineages.
+                <span className="text-stardust-bright">Kathmandu, Nepal</span>. For over 3 years, I have studied the ancient science of Jyotish and have helped many get the light they have been missing!
               </p>
               <p className="text-stardust-dim leading-relaxed">
                 My approach bridges classical Vedic wisdom with the deeply personal. Whether you seek guidance on relationships, career, health, or spiritual evolution, I read your birth chart as a living cosmic map — unique to you, precise in its timing, and profound in its counsel.
@@ -387,7 +518,7 @@ export default function App() {
                 </a>
                 <span className="w-px h-4 bg-stardust-dim opacity-30" />
                 <a
-                  href="https://wa.me/9779800000000"
+                  href="https://wa.me/9779765152413"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-stardust-dim hover:text-gold transition-colors duration-300 group"
@@ -415,7 +546,7 @@ export default function App() {
           >
             <p className="field-label mb-4">What I Offer</p>
             <h2 className="font-serif-display text-4xl md:text-5xl text-stardust-bright font-light">
-              Celestial <em className="italic text-gold">Services</em>
+              Astrology <em className="italic text-gold">Services</em>
             </h2>
             <p className="text-stardust-dim mt-4 max-w-md mx-auto leading-relaxed">
               Each reading is crafted with care, conducted over video call or WhatsApp voice call, and tailored entirely to you.
@@ -504,7 +635,7 @@ export default function App() {
                 style={{
                   width: i === activeTestimonial ? 24 : 8,
                   height: 8,
-                  background: i === activeTestimonial ? '#d4af37' : 'rgba(212,175,55,0.3)',
+                  background: i === activeTestimonial ? 'var(--gold)' : 'var(--gold-dim)',
                 }}
               />
             ))}
